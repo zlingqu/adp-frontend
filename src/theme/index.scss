@@ -1,0 +1,4 @@
+// 引入非主题相关的部分全局样式
+@import './common/global.scss';
+// 按主题风格引入样式文件
+@import './light/index';

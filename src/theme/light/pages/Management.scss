@@ -1,0 +1,61 @@
+@import '../../mixins/mixin';
+.adp-management {
+  &-operation {
+    @include flex();
+    &-filter.ant-input-search {
+      width: 320px;
+      &, & + .ant-btn {
+        margin-right: 48px;
+      }
+    }
+    margin-bottom: 32px;
+    .adp-management-counter {
+      line-height: 32px;
+      margin-left: 20px
+      &-num {
+        margin: 0 4px;
+        color: #fa8c16;
+      }
+    }
+  }
+  .ant-table-thead {
+    border: solid 1px #e8e8e8;
+
+    & > tr > th > div {
+      font-weight: bolder;
+    }
+  }
+  .adp-management-table-operation-item {
+    color: #1890ff;
+    width: 80px;
+    height: 100%;
+    padding: 16px;
+    padding-left: 0;
+    cursor: pointer;
+    &:hover {
+      color: #40a9ff;
+    }
+    &:active {
+      color: #096dd9;
+    }
+    margin-right: 40px;
+  }
+  .adp-deployment-management-table {
+    .adp-management-table-operation-item {
+      margin-right: 4px;
+    }
+  }
+}
+.adp-project-form-label {
+  height: 32px;
+  line-height: 32px;
+  font-size: 16px;
+  color: #000;
+  background: #f7f7f7;
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+
+.body :global(.ant-table-row td) {
+  padding: 3px 5px 3px 0;
+}

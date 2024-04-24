@@ -1,0 +1,144 @@
+@import './function';
+
+@import './utils'; // 引入其他自定义mixins
+/* responsive design
+-------------------- */
+
+@mixin respon-to($key, $map: $breakpoints) {
+    @if map-has-key($map, $key) {
+        @media only screen and (#{inspect(map-get($map, $key))}) {
+            @content;
+        }
+    }
+    @else {
+        @warn "Undefeined points: `#{$map}`";
+    }
+}
+
+
+/* BEM
+--------------------- */
+
+@mixin b($block-name) {
+    $B: $namespace + '-' + $block-name !global;
+    .#{$B} {
+        @content;
+    }
+}
+
+@mixin e($element-name) {
+    $E: $element-name !global;
+    $selector: &;
+    $currentSelector: '';
+    @each $unit in $element-name {
+        $currentSelector: #{$currentSelector +
+ '.'+$B+$element-separator+$unit+','
+    }
+    ;
+}
+
+@if hitAllSpecialNestRule($selector) {
+    @at-root {
+        #{$selector} {
+            #{$currentSelector} {
+                @content;
+            }
+        }
+    }
+}
+
+@else {
+    @at-root {
+        #{$currentSelector} {
+            @content;
+        }
+    }
+}
+
+
+}
+@mixin m($modifier-name) {
+    $selector: &;
+    $currentSelector: '';
+    @each $unit in $modifier-name {
+        $currentSelector: #{$currentSelector +
+ &+$modifier-separator+$unit+','
+    }
+    
+    ;
+}
+@at-root {
+    #{$currentSelector} {
+        @content;
+    }
+}
+
+}
+@mixin when($state) {
+    @at-root {
+        &.#{$state-prefix + $state} {
+            @content;
+        }
+    }
+}
+
+/**
+* 产生flex样式
+* @param $direction flex方向:       row | column | row-reverse | column-reverse
+* @param $content   主轴方向布局:    flex-start | flex-end | center | space-between | space-around
+* @param $align    交叉轴方向布局:   flex-start | flex-end | center | baseline | stretch
+* @param $wrap     是否换行         no-wrap | wrap | wrap-reverse
+*/
+@mixin flex( $direction: row, $content: flex-start, $align: flex-start, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $content;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+/*
+  伪类
+  div {
+    @include pseudo(last-of-type) {
+      color:red;
+    }
+  }
+  div:last-of-type {
+    color:red;
+  }
+*/
+@mixin pseudo($pseudo) {
+    @at-root #{&}#{':#{$pseudo}'} {
+ @content;
+}
+
+}
+@mixin css-table-cell( $lineHeight, $cellPaddingTop, $cellPaddingLeft, $firstCellPadding) {
+    .cell {
+        padding: $cellPaddingTop $cellPaddingLeft;
+        line-height: $lineHeight;
+        white-space: nowrap;
+        height: 91px;
+        line-height: 91px;
+    }
+    &:first-child {
+        .cell {
+            padding-left: $firstCellPadding;
+        }
+    }
+}
+@mixin css-table-cell($lineHeight, $cellPaddingTop, $cellPaddingLeft, $firstCellPadding) {
+    .cell {
+        padding: $cellPaddingTop $cellPaddingLeft;
+        line-height: $lineHeight;
+        white-space: nowrap;
+        height: 91px;
+        line-height: 91px;
+    }
+    &:first-child {
+        .cell {
+            padding-left: $firstCellPadding;
+        }
+    }
+}

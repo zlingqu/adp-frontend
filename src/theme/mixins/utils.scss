@@ -1,0 +1,94 @@
+
+/**
+* Triangle 在元素上添加小三角形
+* $direction: up | down | left | right 三角形箭头方向
+* $size: 8px 三角形大小，默认为8px
+* $color: #222 三角形颜色, 默认为 #222
+*/
+@mixin triangle($direction: 'up', $size: 8px, $color: #222) {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  @if ($direction == 'up') {
+    border-bottom: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+  } @else if ($direction == 'down') {
+    border-top: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+  } @else if ($direction == 'left') {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  } @else if ($direction == 'right') {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  }
+}
+
+/*
+* Clearfix 清除浮动
+*/
+%clearfix {
+  *zoom: 1;
+  &:after {
+    content: '';
+    display: table;
+    line-height: 0;
+    clear: both;
+  }
+}
+
+/*
+* Ghost Vertical Align 设置元素垂直居中
+*/
+@mixin ghostVerticalAlign($pseudoEl: before) {
+  &:#{$pseudoEl} {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    width: 0.1px;
+  }
+}
+%vertical-align {
+  @include ghostVerticalAlign();
+}
+
+/*
+* Truncate Text 防止字体溢出
+*/
+@mixin truncateText($overflow: ellipsis) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: $overflow; // values are: clip, ellipsis, or a string
+}
+
+/*
+* 设置滚动条样式
+* $track-color: 轨道颜色
+* $thumb-color: 滑块颜色
+* $size: 滚动条大小
+* $border-radius: 滑块圆角
+*/
+@mixin scrollBar(
+  $track-color: #d3dce6,
+  $thumb-color: #99a9bf,
+  $size: 6px,
+  $border-radius: 20px
+) {
+  &::-webkit-scrollbar-track-piece {
+    background: $track-color;
+  }
+  &::-webkit-scrollbar {
+    width: $size;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $border-radius;
+  }
+}

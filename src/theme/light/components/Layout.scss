@@ -1,0 +1,38 @@
+@import '../../mixins/mixin';
+.adp-sider {
+  height: 100%;
+}
+.adp-sider .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.adp-sider .trigger:hover {
+  color: #1890ff;
+}
+
+.adp-sider .logo {
+  height: 86.7px;
+  margin: 16px;
+  width: 48px;
+  &.fat-logo {
+    height: 72.5px;
+    width: 168px;
+  }
+}
+
+.adp-layout-header {
+  background: #fff;
+  padding: 0;
+  @include flex(flex-start, space-between, center, nowrap);
+  &-username {
+    margin: 0 24px;
+    cursor: pointer;
+    .ant-avatar {
+        margin-right: 16px;
+    }
+  }
+}
